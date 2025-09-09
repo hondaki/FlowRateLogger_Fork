@@ -5,10 +5,8 @@
 #define WIFI_TRIAL_COUNT 30
 #define NTP_TRIAL_COUNT 30
 
-//const char* ssid     = "aterm-21c7c5-g";
-//const char* password = "6081afff89959";
-const char* ssid     = "Buffalo-G-0EF0";
-const char* password = "fifub77kai558";
+const char* ssid     = "SSID";
+const char* password = "PASS";
 
 //const char* ntpServer = "NTP.th.net";
 //const char* ntpServer = "time.thai.net";

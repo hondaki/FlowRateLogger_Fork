@@ -6,8 +6,8 @@
 
 #include "FlowMeter.h"
 
-//#define NO_FLOW_COUNT_THRESHOLD 600 // 10 min
-#define NO_FLOW_COUNT_THRESHOLD 10 // 10 sec for debug
+#define NO_FLOW_COUNT_THRESHOLD 300 // 5 min
+//#define NO_FLOW_COUNT_THRESHOLD 10 // 10 sec for debug
 
 
 // RTC
