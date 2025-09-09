@@ -19,6 +19,7 @@ RTC_TimeTypeDef rtc_time;
 // SD
 
 bool log_started = false;
+bool no_sd_card = false;
 File log_file;
 
 
@@ -90,6 +91,7 @@ void handle_log() {
   if (flow_meters[0].count_diff == 0 && flow_meters[1].count_diff == 0 && !log_started) {
     // Do nothing before first logging started
     // Serial.println("Waiting start.");
+    no_sd_card = false;
   }
   else if (NO_FLOW_COUNT_THRESHOLD < flow_meters[0].no_flow_count && NO_FLOW_COUNT_THRESHOLD < flow_meters[1].no_flow_count) {
     if (log_file != NULL) {
@@ -98,6 +100,7 @@ void handle_log() {
       log_file = (File)NULL;
       Serial.println("Log file closed.");
     }
+    no_sd_card = false;
   }
   else {
     // Create File if not exist
@@ -131,6 +134,10 @@ void handle_log() {
     if (log_file != NULL) {    
       log_file.printf(logdata);
       log_file.flush();
+      no_sd_card = false;
+    }
+    else {
+      no_sd_card = true;
     }
 
     // Output to Serial
@@ -173,7 +180,13 @@ void show_status() {
     M5.Lcd.printf("Data Logging\n");
   }
   else {
-    M5.Lcd.setTextColor(BLUE, DARKGREY);
-    M5.Lcd.printf("Waiting Data\n");
+    if (no_sd_card) {
+      M5.Lcd.setTextColor(YELLOW, RED);
+      M5.Lcd.printf("NO SD CARD!\n");
+    }
+    else {
+      M5.Lcd.setTextColor(BLUE, DARKGREY);
+      M5.Lcd.printf("Waiting Data\n");
+    }
   }
 }
