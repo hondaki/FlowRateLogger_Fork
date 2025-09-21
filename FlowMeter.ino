@@ -38,8 +38,11 @@ void setup_flow_meter(flow_meter *meter, uint8_t pin, pcnt_unit_t unit) {
 void reset_flow_meters() {
   flow_meters[0].total_count = 0;
   flow_meters[0].total_flow = 0;
+  flow_meters[0].last_count = 0;
+
   flow_meters[1].total_count = 0;
   flow_meters[1].total_flow = 0;
+  flow_meters[1].last_count = 0;
 }
 
 
