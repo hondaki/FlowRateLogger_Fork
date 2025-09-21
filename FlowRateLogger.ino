@@ -58,7 +58,8 @@ void loop() {
   handle_log();
   show_status();
 
-  delay(1000);
+  //delay(5000);  //5sec
+  delay(1000*60);  //1min
 }
 
 
