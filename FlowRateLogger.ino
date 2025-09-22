@@ -42,6 +42,7 @@ void setup() {
   // Peripherals
 
   setup_flow_meters();
+  reset_flow_meters(); // added by KH 2025-09-22
   setup_time();
 }
 
@@ -100,6 +101,7 @@ void handle_log() {
       log_file.close(); 
       log_file = (File)NULL;
       Serial.println("Log file closed.");
+      reset_flow_meters();  // Added by KH reset totals as next recording will be in the new file.  2025-09-22
     }
     no_sd_card = false;
   }
@@ -115,7 +117,7 @@ void handle_log() {
 
       if (log_file != NULL) {
         log_started = true;
-        reset_flow_meters();
+        // reset_flow_meters(); // void by KH. Reset happens when the file is closed.  2025-09-22
         Serial.println("Log file created.");
       }
     }
