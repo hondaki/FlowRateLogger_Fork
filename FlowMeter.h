@@ -23,6 +23,12 @@ typedef struct flow_meter_type {
   uint32_t no_flow_count = 0;
 } flow_meter;
 
+// Added protypes by KH 2025-09-22
+void setup_flow_meters();
+void setup_flow_meter(flow_meter *meter, uint8_t pin, pcnt_unit_t unit);
+void update_flow_meters();
+void update_flow_meter(flow_meter *fm);
+void reset_flow_meters();
 
 extern flow_meter flow_meters[2];
 
