@@ -63,7 +63,7 @@ void update_flow_meter(flow_meter *fm) {
   }
   else {
     if(fm->count_diff < 0) {
-      fm->count_diff += COUNTER_MAX;
+      fm->count_diff += COUNTER_MAX + 1;  // +1 added by KH 2025-09-23
     }
     fm->total_count += fm->count_diff;
     fm->last_count = fm->count;
