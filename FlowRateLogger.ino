@@ -9,6 +9,7 @@
 #define NO_FLOW_COUNT_THRESHOLD 300 // 5 min
 //#define NO_FLOW_COUNT_THRESHOLD 10 // 10 sec for debug
 
+#define UPDATE_INTERVAL	60 // 60sec = 1 min
 
 // RTC
 
@@ -60,7 +61,7 @@ void loop() {
   show_status();
 
   //delay(5000);  //5sec
-  delay(1000*60);  //1min
+  delay( 1000*UPDATE_INTERVAL );  //1min as UPDATE_INTERVAL is 60
 }
 
 
@@ -109,7 +110,7 @@ void handle_log() {
     // Create File if not exist
     if (log_file == NULL) {
       char filename[60];
-      sprintf(filename, "/%04d%02d%02d_%02d%02d%02d%02d_flowrate.txt"
+      sprintf(filename, "/%04d%02d%02d_%02d%02d%02d%02d_flowrate.csv"
         , rtc_date.Year, rtc_date.Month, rtc_date.Date
         , rtc_time.Hours, rtc_time.Minutes, rtc_time.Seconds, 0
         );
@@ -167,16 +168,16 @@ void show_status() {
   M5.Lcd.printf(datetime);
 
   M5.Lcd.printf("Port 1(SCL)\n");
-  M5.Lcd.printf("Count / Sec  : %d\n", flow_meters[0].count_diff);
+  M5.Lcd.printf("Count/%2dSec  : %d\n", UPDATE_INTERVAL, flow_meters[0].count_diff);
   M5.Lcd.printf("Total Count  : %d\n", flow_meters[0].total_count);
-  M5.Lcd.printf("F-Rate L/S   : %.3f\n", flow_meters[0].flow_rate / 1000);
-  M5.Lcd.printf("Total Flow L : %.3f\n\n", flow_meters[0].total_flow / 1000);
+  M5.Lcd.printf("F-Rate mL/%2dSec  : %.2f\n", UPDATE_INTERVAL, flow_meters[0].flow_rate );
+  M5.Lcd.printf("Total Flow L : %.5f\n\n", flow_meters[0].total_flow / 1000);
 
   M5.Lcd.printf("Port 2(SDA)\n");
-  M5.Lcd.printf("Count / Sec  : %d\n", flow_meters[1].count_diff);
+  M5.Lcd.printf("Count /%2dSec  : %d\n", UPDATE_INTERVAL, flow_meters[1].count_diff);
   M5.Lcd.printf("Total Count  : %d\n", flow_meters[1].total_count);
-  M5.Lcd.printf("F-Rate L/S   : %.3f\n", flow_meters[1].flow_rate / 1000);
-  M5.Lcd.printf("Total Flow L : %.3f\n\n", flow_meters[1].total_flow / 1000);
+  M5.Lcd.printf("F-Rate ml/%2dSec   : %.2f\n", UPDATE_INTERVAL, flow_meters[1].flow_rate );
+  M5.Lcd.printf("Total Flow L : %.5f\n\n", flow_meters[1].total_flow / 1000);
   
   if (log_file != NULL) {
     M5.Lcd.setTextColor(RED, DARKGREY);
