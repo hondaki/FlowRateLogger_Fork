@@ -33,6 +33,7 @@ bool output_logdata_to_serial = true;
 
 void setup() {
   M5.begin();
+  Serial.begin(115200);
 
   // Screen
 
@@ -167,17 +168,19 @@ void show_status() {
   );
   M5.Lcd.printf(datetime);
 
-  M5.Lcd.printf("Port 1(SCL)\n");
-  M5.Lcd.printf("Count/%2dSec  : %d\n", UPDATE_INTERVAL, flow_meters[0].count_diff);
+  M5.Lcd.printf("Port 1(SCL) G33\n");
+  M5.Lcd.printf("Count/%2.2ds    : %d\n", UPDATE_INTERVAL, flow_meters[0].count_diff);
   M5.Lcd.printf("Total Count  : %d\n", flow_meters[0].total_count);
-  M5.Lcd.printf("F-Rate mL/%2dSec  : %.2f\n", UPDATE_INTERVAL, flow_meters[0].flow_rate );
+  M5.Lcd.printf("F-Rate mL/%2ds: %.2f\n", UPDATE_INTERVAL, flow_meters[0].flow_rate );
   M5.Lcd.printf("Total Flow L : %.5f\n\n", flow_meters[0].total_flow / 1000);
 
-  M5.Lcd.printf("Port 2(SDA)\n");
-  M5.Lcd.printf("Count /%2dSec  : %d\n", UPDATE_INTERVAL, flow_meters[1].count_diff);
+  M5.Lcd.printf("Port 2(SDA) G32\n");
+  M5.Lcd.printf("Count/%2.2ds    : %d\n", UPDATE_INTERVAL, flow_meters[1].count_diff);
   M5.Lcd.printf("Total Count  : %d\n", flow_meters[1].total_count);
-  M5.Lcd.printf("F-Rate ml/%2dSec   : %.2f\n", UPDATE_INTERVAL, flow_meters[1].flow_rate );
+  M5.Lcd.printf("F-Rate mL/%2ds: %.2f\n", UPDATE_INTERVAL, flow_meters[1].flow_rate );
   M5.Lcd.printf("Total Flow L : %.5f\n\n", flow_meters[1].total_flow / 1000);
+  //M5.Lcd.printf("Total Flow L : %.5f\n\n", 1234.56789);
+
   
   if (log_file != NULL) {
     M5.Lcd.setTextColor(RED, DARKGREY);
